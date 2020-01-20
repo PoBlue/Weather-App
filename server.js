@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require('express');
@@ -20,7 +20,16 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
 const port = 8000;
 const server = app.listen(port, ()=>{console.log(`running on localhost: ${port}`)});
+
+// Get handler
+app.get('/last', (req, res) => {
+    res.send(JSON.stringify(projectData));
+})
+
+app.post("/upload", (req, res) => {
+    projectData = {...res.body};
+    res.end();
+});
