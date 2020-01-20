@@ -25,4 +25,19 @@ const postData = async (url = '', data = {}) => {
     }
 }
 
+const retrieveData = async (url = '') => {
+    const request = await fetch(url);
+    try {
+        // Transform into JSON
+        const allData = await request.json();
+        console.log(allData);
+        return allData;
+    }
+    catch (error) {
+        console.log("error", error);
+        // appropriately handle the error
+    }
+}
+
 postData('/add', { temp: 42 , date: 12, input: 'hello,world!'});
+retrieveData('/last');
