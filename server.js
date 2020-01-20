@@ -29,6 +29,6 @@ app.get('/last', (req, res) => {
     res.send(JSON.stringify(projectData));
 })
 
-app.post("/upload", (req, res) => {
+app.post("/add", (req, res) => {
     projectData = {...req.body};
 });
