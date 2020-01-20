@@ -31,4 +31,5 @@ app.get('/last', (req, res) => {
 
 app.post("/add", (req, res) => {
     projectData = {...req.body};
+    res.send('200');
 });
