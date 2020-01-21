@@ -5,7 +5,7 @@ const appid = '&appid=b6907d289e10d714a6e88b30761fae22';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + '/' + d.getDate() + '/' + d.getFullYear();
 
 const postData = async (url = '', data = {}) => {
     const response = await fetch(url, {
@@ -58,8 +58,14 @@ document.getElementById("generate").addEventListener('click', () => {
     })
 } , false);
 
+const dateEle = document.querySelector("#date");
+const tempEle = document.querySelector("#temp");
+const contentEle = document.querySelector("#content");
+
 const updateUI = (data) => {
-    console.log(data);
+    dateEle.innerHTML = "Date: " + data.date;
+    tempEle.innerHTML = "Temp: " + data.temp;
+    contentEle.innerHTML = "Feelings: " + data.feelings;
 };
 
 //get input
