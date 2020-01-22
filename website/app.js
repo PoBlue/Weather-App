@@ -1,11 +1,19 @@
 /* Global Variables */
-const openWeatherBaseUrl = 'https://samples.openweathermap.org/data/2.5/weather?zip=';
-var zipCode = '94040';
-const appid = '&appid=b6907d289e10d714a6e88b30761fae22';
+const openWeatherBaseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+var zipCode;
+const appid = '&appid=fd3b6a58f8ab4ef50b34bf5ec115bf56&units=metric';
+
 
 // Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + '/' + d.getDate() + '/' + d.getFullYear();
+const getDate = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = mm + "/" + dd + "/" + yyyy;
+    return today;
+}
 
 const postData = async (url = '', data = {}) => {
     const response = await fetch(url, {
@@ -23,6 +31,7 @@ const postData = async (url = '', data = {}) => {
         return newData;
     } catch (error) {
         console.log("error", error);
+        alert(`请求失败: ${error}`);
     }
 }
 
@@ -35,6 +44,7 @@ const retrieveData = async (url = '') => {
     }
     catch (error) {
         console.log("error", error);
+        alert(`请求失败: ${error}`);
         // appropriately handle the error
     }
 }
@@ -42,6 +52,7 @@ const retrieveData = async (url = '') => {
 //click generate
 document.getElementById("generate").addEventListener('click', () => {
     let input = getInput();
+    let newDate = getDate();
 
     retrieveData(openWeatherBaseUrl + input.zipCode + appid).then((data) => {
         let d = {
@@ -55,7 +66,9 @@ document.getElementById("generate").addEventListener('click', () => {
                 updateUI(data);
             });
         });
-    })
+    }).catch((error) => {
+        alert(`请求失败, 请检查输入！`);
+    });
 } , false);
 
 const dateEle = document.querySelector("#date");
